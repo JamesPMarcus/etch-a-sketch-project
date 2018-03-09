@@ -1,68 +1,66 @@
 // Etch-a-sketch js 
 
+//jquery is also used in this code
 
-container= document.querySelector('#container');
 
-const block1 = document.createElement('div');
-block1.classList.add('gridPiece');
-container.appendChild(block1);
+//function for creating a grid, num is designate rows + columns
 
-const block2 = document.createElement('div');
-block2.classList.add('gridPiece');
-container.appendChild(block2);
 
-const block3 = document.createElement('div');
-block3.classList.add('gridPiece');
-container.appendChild(block3);
+function createGrid(num) {
+    for (var rows=0; rows < num; columns++) {
+        for (var columns=0; columns < num; columns++){
+            $('#container').append("<div class='grid'></div");
+             }        
+        }
 
-const block4 = document.createElement('div');
-block4.classList.add('gridPiece');
-container.appendChild(block4);
+$('.grid').width(960/num);
+$('.grid').height(960/num);
+}
 
-const block5 = document.createElement('div');
-block5.classList.add('gridPiece');
-container.appendChild(block5);
+//function to clear grid
 
-const block6 = document.createElement('div');
-block6.classList.add('gridPiece');
-container.appendChild(block6);
+function gridClear() {
+    
+    $('.grid').remove();
+}
+    
+    
+//function to refresh grid and ask for new grid dimension
 
-const block7 = document.createElement('div');
-block7.classList.add('gridPiece');
-container.appendChild(block7);
+function refreshGrid() {
+    
+    var dime = prompt("Choose your new dimensions");
+    gridClear();
+    creatGrid(dime);
+}
 
-const block8 = document.createElement('div');
-block8.classList.add('gridPiece');
-container.appendChild(block8);
+//create a 16x16 grid when page loads
+//hover effect to change color of square
+//click of button to refrhesh Grid and ask for new dimensions
 
-const block9 = document.createElement('div');
-block9.classList.add('gridPiece');
-container.appendChild(block9);
 
-const block10 = document.createElement('div');
-block10.classList.add('gridPiece');
-container.appendChild(block10);
+$(document).ready(function () {
+    
+    createGrid(16);
+    
+    $('.grid').mouseover(function() {
+        $(this).css('background-color','black');
+        });
+    
+        
+            $('.but').click (function () {
+                refreshGrid();
+               
+                 $('.grid').mouseover(function() {
+                $(this).css('background-color','black');
+                });
+    
+                
+            });
+        
+ 
+    
+    
+});
 
-const block11 = document.createElement('div');
-block11.classList.add('gridPiece');
-container.appendChild(block11);
 
-const block12 = document.createElement('div');
-block12.classList.add('gridPiece');
-container.appendChild(block12);
-
-const block13 = document.createElement('div');
-block13.classList.add('gridPiece');
-container.appendChild(block13);
-
-const block14 = document.createElement('div');
-block14.classList.add('gridPiece');
-container.appendChild(block14);
-
-const block15 = document.createElement('div');
-block15.classList.add('gridPiece');
-container.appendChild(block15);
-
-const block16 = document.createElement('div');
-block16.classList.add('gridPiece');
-container.appendChild(block16);

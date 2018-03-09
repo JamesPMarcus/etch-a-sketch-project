@@ -3,21 +3,31 @@ html, body {
     height: 100%;
 }
 
+button {
+    width: 9%;
+    height: 7%;
+    position: relative;
+    left: 40%;
+}
+
 #container {
-  display: block;
-    width: 500px;
-    height: 500px;
-    align-content: center;
+    position: relative;
+    left: 100px;
+    outline: 2px solid #000;
+    font-size: 0;
+    top: 25px;
+height: 960px;
+width: 960px;
+    padding: 0;
+    border: none;
 }
 
-
-
-.gridPiece {
+.grid {
+    border: none;
+    margin: 0;
+    padding: 0;
     display: inline-block;
-    vertical-align:top;
-    width: 6.25%;
-    height: 6.25%;
-    border: 5px;
-    margin: 10px;
-    background-color: red;
+    outline: 1px solid #000;
+
 }
+
