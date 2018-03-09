@@ -7,7 +7,7 @@
 
 
 function createGrid(num) {
-    for (var rows=0; rows < num; columns++) {
+    for (var rows=0; rows < num; rows++) {
         for (var columns=0; columns < num; columns++){
             $('#container').append("<div class='grid'></div");
              }        
@@ -31,7 +31,7 @@ function refreshGrid() {
     
     var dime = prompt("Choose your new dimensions");
     gridClear();
-    creatGrid(dime);
+    createGrid(dime);
 }
 
 //create a 16x16 grid when page loads
