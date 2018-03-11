@@ -1,0 +1,242 @@
+diff --git a/etch-a-sketch.js b/etch-a-sketch.js
+index 6ceff29..1050302 100644
+--- a/etch-a-sketch.js
++++ b/etch-a-sketch.js
+@@ -1,34 +1,45 @@
+ // Etch-a-sketch js 
+-
+ //jquery is also used in this code
+-
+-
+ //function for creating a grid, num is designate rows + columns
++function createGrid(num) {
++    var container = $("#container");
++    var overlay = $('.loading-overlay');
++    var containerWidth = container.width();
++    var containerHeight = container.height();
+ 
++    overlay.removeClass('hidden');
+ 
+-function createGrid(num) {
+-    for (var rows=0; rows < num; rows++) {
+-        for (var columns=0; columns < num; columns++){
+-            $('#container').append("<div class='grid'></div");
+-             }        
++    if (containerWidth > containerHeight) {
++        container.width(containerHeight);
++    } else {
++        container.height(containerWidth);
++    }
++
++    //defer the execution of the grid calculations to allow the DOM to refresh with loading
++    //Promises might be a better solution
++    setTimeout(function() {
++        for (var rows = 0; rows < num; rows++) {
++            var row = $("<div class='row'></div>")
++            for (var columns = 0; columns < num; columns++) {
++                row.append("<div class='grid'></div");
++            }
++            container.append(row);
+         }
+ 
+-$('.grid').width(960/num);
+-$('.grid').height(960/num);
++        overlay.addClass('hidden');
++    }, 0);
++
+ }
+ 
+ //function to clear grid
+-
+ function gridClear() {
+-    
+-    $('.grid').remove();
++    $('#container').empty();
+ }
+-    
+-    
+-//function to refresh grid and ask for new grid dimension
+ 
++
++//function to refresh grid and ask for new grid dimension
+ function refreshGrid() {
+-    
++
+     var dime = prompt("Choose your new dimensions");
+     gridClear();
+     createGrid(dime);
+@@ -37,30 +48,20 @@ function refreshGrid() {
+ //create a 16x16 grid when page loads
+ //hover effect to change color of square
+ //click of button to refrhesh Grid and ask for new dimensions
++$(document).ready(function() {
+ 
+-
+-$(document).ready(function () {
+-    
+     createGrid(16);
+-    
++
+     $('.grid').mouseover(function() {
+-        $(this).css('background-color','black');
+-        });
+-    
+-        
+-            $('.but').click (function () {
+-                refreshGrid();
+-               
+-                 $('.grid').mouseover(function() {
+-                $(this).css('background-color','black');
+-                });
+-    
+-                
+-            });
+-        
+- 
+-    
+-    
+-});
++        $(this).addClass('hovered');
++    });
+ 
+ 
++    $('.but').click(function() {
++        refreshGrid();
++
++        $('.grid').mouseover(function() {
++            $(this).css('background-color', 'black');
++        });
++    });
++});
+\ No newline at end of file
+diff --git a/index.html b/index.html
+index 5783f83..de02ffa 100644
+--- a/index.html
++++ b/index.html
+@@ -1,30 +1,19 @@
+ <!DOCTYPE html>
+-
+-<html lang='en'> 
++<html lang='en'>
+ 
+ <head>
+-
+     <link rel='stylesheet' href='style.css'>
+-    
+-     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+-
++    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script type='text/javascript' src='etch-a-sketch.js'></script>
+-
+-
+-    
+-<title>Etch-a-sketch</title>
+-    
++    <title>Etch-a-sketch</title>
+ </head>
+-    
++
+ <body>
+-    
+-    
+-<button type='button' class='but'>Clear Grid</button>
+-    
+-<div id='container'> </div>
+-    
+-    
+-    
+-</body>  
+-    
+-</html>
++    <div class='loading-overlay hidden'>
++        <span class="msg">Loading!</span>
++    </div>
++    <button type='button' class='but'>Clear Grid</button>
++    <div id='container'> </div>
++</body>
++
++</html>
+\ No newline at end of file
+diff --git a/style.css b/style.css
+index f2338be..aa3b4a7 100644
+--- a/style.css
++++ b/style.css
+@@ -1,33 +1,66 @@
+-html, body {
++html,
++body {
+     width: 100%;
+     height: 100%;
+ }
+ 
++body {
++    display: flex;
++    flex-direction: column;
++    margin: 0;
++}
++
++.hidden {
++    /*Use important as we want hidden to ALWAYS remove the item from the view*/
++    display: none !important;
++}
++
++.loading-overlay {
++    width: 100%;
++    height: 100%;
++    position: absolute;
++    display: flex;
++    justify-content: center;
++    background-color: rgba(0, 0, 0, 0.6);
++}
++
++.loading-overlay .msg {
++    align-self: center;
++    color: #FFF;
++    font-size: x-large;
++}
++
+ button {
+     width: 9%;
+     height: 7%;
+-    position: relative;
+-    left: 40%;
++    align-self: center;
+ }
+ 
+ #container {
+-    position: relative;
+-    left: 100px;
+     outline: 2px solid #000;
+     font-size: 0;
+-    top: 25px;
+-height: 960px;
+-width: 960px;
+     padding: 0;
+     border: none;
++    align-self: center;
++    flex: 1;
++    width: 100%;
++    display: flex;
++    flex-direction: column;
+ }
+ 
+-.grid {
++#container .row {
++    display: flex;
++    flex: 1;
++}
++
++#container .row .grid {
+     border: none;
+     margin: 0;
+     padding: 0;
+-    display: inline-block;
+     outline: 1px solid #000;
+-
++    flex: 1;
+ }
+ 
++#container .row .grid.hovered {
++    background-color: #000;
++}
+\ No newline at end of file
