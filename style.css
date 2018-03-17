@@ -61,6 +61,6 @@ button {
     flex: 1;
 }
 
-#container .row .grid.hovered {
+#container .row .grid .hovered {
     background-color: #000;
 }

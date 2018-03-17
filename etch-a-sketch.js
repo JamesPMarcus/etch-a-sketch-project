@@ -53,7 +53,9 @@ $(document).ready(function() {
     createGrid(16);
 
     $('.grid').mouseover(function() {
-        $(this).addClass('hovered');
+         var colorChange = document.getElementById('.grid');
+        colorChange.style.backgroundColor = black;
+    
     });
 
 
@@ -61,7 +63,8 @@ $(document).ready(function() {
         refreshGrid();
 
         $('.grid').mouseover(function() {
-            $(this).css('background-color', 'black');
+             var colorChange = document.getElementById('.grid');
+        colorChange.style.backgroundColor = black;
         });
     });
 });
