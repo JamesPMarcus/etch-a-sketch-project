@@ -61,6 +61,10 @@ button {
     flex: 1;
 }
 
+<<<<<<< HEAD
 #container .row .grid .hovered {
+=======
+#container .row .grid.hovered {
+>>>>>>> kriddy-etch
     background-color: #000;
 }
